@@ -38,7 +38,7 @@ public class ToDoListGUI extends javax.swing.JFrame {
         model = new DefaultListModel();
         addTask = new AddTaskFrame(jList1, model); //creates new frame with textarea for user to input task. 
         file = new TextFile(jList1, model);
-        file.load();
+        
     }
     
     
@@ -68,6 +68,9 @@ public class ToDoListGUI extends javax.swing.JFrame {
         setTitle("To Do List");
         setSize(new java.awt.Dimension(200, 50));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                load(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 save(evt);
             }
@@ -163,8 +166,12 @@ public class ToDoListGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void save(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_save
-        file.save();
+        file.save(model.getSize());
     }//GEN-LAST:event_save
+
+    private void load(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_load
+        file.load();
+    }//GEN-LAST:event_load
 
     /**
      * @param args the command line arguments

@@ -6,9 +6,12 @@
 package todolist;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -28,18 +31,17 @@ public class TextFile {
     public TextFile(JList list, DefaultListModel model) throws IOException {
         this.list = list;       // list and model to save and load data from. 
         this.model = model;
-        listSize = list.getModel().getSize();
-        //exists = fileList.exists();     // boolean if file exists, use this in load method as well.
         fileList = new File("toDoList.txt");
         if (!fileList.exists()) {          // check if file exists and if not create it. 
             fileList.createNewFile();
         } 
     }
-    public void save() {
+    public void save(int size) {
+        int listSize = size;
         try {
           PrintWriter pw = new PrintWriter(fileList);
            for (int i = 0; i < listSize; i++) {
-               pw.println(list.getModel().getElementAt(i).toString());  // save each item from list to its own line
+               pw.println(model.getElementAt(i).toString());  // save each item from list to its own line
            }
            pw.close();
         } catch(Exception e) {
